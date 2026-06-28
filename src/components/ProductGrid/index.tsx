@@ -1,5 +1,4 @@
 import { Button, Card, Col, Pagination, Row, Spinner } from "react-bootstrap";
-import { LIMIT } from "../../store/productStore";
 import "./index.scss";
 
 export interface Color {
@@ -34,7 +33,7 @@ interface Props {
   loading: boolean;
   products: Product[];
   page: number;
-  total: number;
+  totalPages: number;
   placingOrder: string | null;
   onPageChange: (page: number) => void;
   onPlaceOrder: (productId: string) => void;
@@ -44,12 +43,11 @@ export default function ProductGrid({
   loading,
   products,
   page,
-  total,
+  totalPages,
   placingOrder,
   onPageChange,
   onPlaceOrder,
 }: Props) {
-  const lastPage = Math.ceil(total / LIMIT);
   if (loading) {
     return (
       <div className="d-flex justify-content-center mt-5">
@@ -90,7 +88,7 @@ export default function ProductGrid({
       </Row>
 
       <Pagination className="justify-content-end mt-4">
-        {Array.from({ length: lastPage }, (_, i) => i + 1).map((pg) => (
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((pg) => (
           <Pagination.Item
             key={pg}
             active={pg === page}

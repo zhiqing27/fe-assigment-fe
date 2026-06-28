@@ -7,20 +7,14 @@ export interface SearchFilters {
   brandId: string;
   color: string;
 }
-
-interface Option {
-  id: number;
-  name: string;
-}
-
 interface Props {
   nameInput: string;
   categoryId: string;
   brandId: string;
   color: string;
-  categories: Option[];
-  brands: Option[];
-  colors: Option[];
+  categories: any[];
+  brands: any[];
+  colors: any[];
   onNameChange: (v: string) => void;
   onCategoryChange: (v: string) => void;
   onBrandChange: (v: string) => void;
@@ -51,7 +45,7 @@ export default function SearchSideBar({
       <Form.Group className="mb-3">
         <Form.Label>Category</Form.Label>
         <Form.Select value={categoryId} onChange={(e) => onCategoryChange(e.target.value)}>
-          <option value="">Select Category Dropdown</option>
+          <option key="all-category" value="">All</option>
           {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
         </Form.Select>
       </Form.Group>
@@ -59,7 +53,7 @@ export default function SearchSideBar({
       <Form.Group className="mb-3">
         <Form.Label>Brand</Form.Label>
         <Form.Select value={brandId} onChange={(e) => onBrandChange(e.target.value)}>
-          <option value="">Select Brand Dropdown</option>
+          <option key="all-brand" value="">All</option>
           {brands.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
         </Form.Select>
       </Form.Group>
@@ -67,7 +61,7 @@ export default function SearchSideBar({
       <Form.Group className="mb-3">
         <Form.Label>Color</Form.Label>
         <Form.Select value={color} onChange={(e) => onColorChange(e.target.value)}>
-          <option value="">Select Color Dropdown</option>
+          <option key="all-color" value="">All</option>
           {colors.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
         </Form.Select>
       </Form.Group>

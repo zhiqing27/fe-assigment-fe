@@ -7,6 +7,7 @@ const LIMIT = 8;
 interface ProductState {
   products: Product[];
   total: number;
+  totalPages: number;
   loading: boolean;
   fetchProducts: (params: {
     name?: string;
@@ -18,8 +19,9 @@ interface ProductState {
 }
 
 export const useProductStore = create<ProductState>((set) => ({
-  products:[],
-  total: 1, 
+  products: [],
+  total: 0,
+  totalPages: 1,
   loading: false,
 
   fetchProducts: async ({ name, categoryId, brandId, color, page = 1 }) => {
@@ -33,8 +35,15 @@ export const useProductStore = create<ProductState>((set) => ({
 
     set({ loading: true });
     try {
-      const res = await apiFetch<{ data: Product[]; total: number }>(`products?${query}`);
-      set({ products: res.data, total: res.total });
+      const res = await apiFetch<{
+        success: boolean;
+        data: { data: Product[]; total: number; totalPages: number };
+      }>(`products?${query}`);
+      set({
+        products: res.data.data ?? [],
+        total: res.data.total ?? 0,
+        totalPages: res.data.totalPages ?? 1,
+      });
     } finally {
       set({ loading: false });
     }

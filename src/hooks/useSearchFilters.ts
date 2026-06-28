@@ -4,9 +4,11 @@ import type { SearchFilters } from "../components/SearchSideBar";
 import { useDebounce } from "./useDebounce";
 
 interface Option {
-  id: number;
+  id: string;
   name: string;
 }
+
+type OptionResponse = Option[] | { data: Option[] };
 
 export function useSearchFilters() {
   const [nameInput, setNameInput] = useState("");
@@ -19,15 +21,18 @@ export function useSearchFilters() {
   const [brands, setBrands] = useState<Option[]>([]);
   const [colors, setColors] = useState<Option[]>([]);
 
+  const toArray = (res: OptionResponse): Option[] =>
+    Array.isArray(res) ? res : res.data ?? [];
+
   useEffect(() => {
-    apiFetch<Option[]>("products/filters/categories").then(setCategories).catch(() => {});
-    apiFetch<Option[]>("products/filters/colors").then(setColors).catch(() => {});
+    apiFetch<OptionResponse>("products/filters/categories").then((r) => setCategories(toArray(r))).catch(() => {});
+    apiFetch<OptionResponse>("products/filters/colors").then((r) => setColors(toArray(r))).catch(() => {});
   }, []);
 
   useEffect(() => {
     const query = categoryId ? `?categoryId=${categoryId}` : "";
     setBrandId("");
-    apiFetch<Option[]>(`products/filters/brands${query}`).then(setBrands).catch(() => {});
+    apiFetch<OptionResponse>(`products/filters/brands${query}`).then((r) => setBrands(toArray(r))).catch(() => {});
   }, [categoryId]);
 
   function getFilters(): SearchFilters {

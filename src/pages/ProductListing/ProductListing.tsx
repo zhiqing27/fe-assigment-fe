@@ -17,7 +17,7 @@ export default function ProductListing() {
     getFilters,
   } = useSearchFilters();
 
-  const { products, total, loading, fetchProducts } = useProductStore();
+  const { products, totalPages, loading, fetchProducts } = useProductStore();
   const { placingOrder, placeOrder } = usePlaceOrder();
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function ProductListing() {
           loading={loading}
           products={products}
           page={page}
-          total={total}
+          totalPages={totalPages}
           placingOrder={placingOrder}
           onPageChange={setPage}
           onPlaceOrder={placeOrder}
