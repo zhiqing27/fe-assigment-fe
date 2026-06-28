@@ -10,8 +10,8 @@ export function usePlaceOrder() {
     try {
       await apiFetch("order", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "x-client-id": getClientId() },
-        body: JSON.stringify({ productId }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productColorId: productId, clientId: getClientId() }),
       });
       alert("Order placed!");
     } catch (err) {
