@@ -1,0 +1,47 @@
+@use "../../styles/variables" as *;
+
+.product-img {
+  height: 160px;
+  object-fit: contain;
+  padding: 8px;
+}
+
+.button-brand {
+  padding: 8px 28px;
+  border: 2px solid $brand;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  background: $brand;
+  color: #fff;
+
+  &:hover {
+    background: $brand-active;
+    border-color: $brand-active;
+    color: #fff;  
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.pagination {
+  .page-link {
+    color: $brand;
+    border-color: $brand;
+  }
+
+  .page-item.active .page-link {
+    background-color: $brand;
+    border-color: $brand;
+    color: #fff;
+  }
+
+  .page-link:hover {
+    background-color: $brand-active;
+    border-color: $brand-active;
+    color: #fff;
+  }
+}
