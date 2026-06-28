@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { SearchFilters } from "../../components/SearchSideBar";
 import ProductGrid from "../../components/ProductGrid";
 import SearchSideBar from "../../components/SearchSideBar";
 import { usePlaceOrder } from "../../hooks/usePlaceOrder";
@@ -7,26 +8,30 @@ import { useProductStore } from "../../store/productStore";
 
 export default function ProductListing() {
   const [page, setPage] = useState(1);
+  const [activeFilters, setActiveFilters] = useState<SearchFilters>({
+    name: "", categoryId: "", brandId: "", color: "",
+  });
 
   const {
     nameInput, setNameInput,
+    debouncedName,
     categoryId, setCategoryId,
     brandId, setBrandId,
     color, setColor,
     categories, brands, colors,
-    getFilters,
   } = useSearchFilters();
 
-  const { products, totalPages, loading, fetchProducts } = useProductStore();
+  const { products, totalPages, loading, error, fetchProducts } = useProductStore();
   const { placingOrder, placeOrder } = usePlaceOrder();
 
   useEffect(() => {
-    fetchProducts({ ...getFilters(), page });
-  }, [page]);
+    fetchProducts({ ...activeFilters, page });
+  }, [page, activeFilters]);
 
   function handleSearch() {
+    const f = { name: debouncedName, categoryId, brandId, color };
+    setActiveFilters(f);
     setPage(1);
-    fetchProducts({ ...getFilters(), page: 1 });
   }
 
   return (
@@ -47,6 +52,7 @@ export default function ProductListing() {
       />
 
       <div className="flex-grow-1">
+        {error && <p className="text-danger">{error}</p>}
         <ProductGrid
           loading={loading}
           products={products}
