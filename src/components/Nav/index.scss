@@ -1,0 +1,23 @@
+$brand: #104B25FF;
+
+.nav {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #ddd;
+
+  button {
+    padding: 8px 28px;
+    border: 2px solid $brand;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    background: #fff;
+    color: $brand;
+
+    &.active {
+      background: $brand;
+      color: #fff;
+    }
+  }
+}

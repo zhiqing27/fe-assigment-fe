@@ -1,0 +1,21 @@
+@use "../../styles/variables" as *;
+
+.button-brand {
+  padding: 8px 28px;
+  border: 2px solid $brand;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  background: $brand;
+  color: #fff;
+
+  &:hover {
+    background: $brand-active;
+    border-color: $brand-active;
+  }
+
+  &.active {
+    background: $brand-active;
+    color: #fff;
+  }
+}
