@@ -2,7 +2,7 @@ import { Button, Pagination, Spinner, Table } from "react-bootstrap";
 import { useOrders } from "../../hooks/useOrders";
 
 export default function OrderHistory() {
-  const { orders, page, totalPages, setPage, setCompleted, loading } =
+  const { orders, page, totalPages, setPage, setCompleted, loading, error } =
     useOrders();
 
   if (loading)
@@ -11,7 +11,9 @@ export default function OrderHistory() {
         <Spinner animation="border" />
       </div>
     );
-  if (orders.length == 0)
+  if (error)
+    return <p className="text-danger text-center mt-5">{error}</p>;
+  if (orders.length === 0)
     return (
       <div className="d-flex justify-content-center mt-5">No order placed</div>
     );

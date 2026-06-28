@@ -63,7 +63,7 @@ export default function ProductGrid({
             <Card className="h-100 text-center">
               <Card.Img variant="top" src={p.imageUrl} alt={p.name} className="product-img" />
               <Card.Body className="d-flex flex-column">
-                <Card.Title style={{ fontSize: "0.95rem" }}>{p.name}</Card.Title>
+                <Card.Title className="product-title">{p.name}</Card.Title>
                 <Card.Text className="mb-3">RM {p.price.toLocaleString()}</Card.Text>
                 <Button
                   variant="link"

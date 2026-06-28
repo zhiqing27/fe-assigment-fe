@@ -1,5 +1,9 @@
 @use "../../styles/variables" as *;
 
+.product-title {
+  font-size: 0.95rem;
+}
+
 .product-img {
   height: 160px;
   object-fit: contain;

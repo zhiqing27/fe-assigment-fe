@@ -9,6 +9,7 @@ interface ProductState {
   total: number;
   totalPages: number;
   loading: boolean;
+  error: string | null;
   fetchProducts: (params: {
     name?: string;
     categoryId?: string;
@@ -23,6 +24,7 @@ export const useProductStore = create<ProductState>((set) => ({
   total: 0,
   totalPages: 1,
   loading: false,
+  error: null,
 
   fetchProducts: async ({ name, categoryId, brandId, color, page = 1 }) => {
     const query = new URLSearchParams();
@@ -33,7 +35,7 @@ export const useProductStore = create<ProductState>((set) => ({
     query.set("limit", String(LIMIT));
     query.set("offset", String((page - 1) * LIMIT));
 
-    set({ loading: true });
+    set({ loading: true, error: null });
     try {
       const res = await apiFetch<{
         success: boolean;
@@ -44,6 +46,8 @@ export const useProductStore = create<ProductState>((set) => ({
         total: res.data.total ?? 0,
         totalPages: res.data.totalPages ?? 1,
       });
+    } catch (e) {
+      set({ error: e instanceof Error ? e.message : "Failed to load products" });
     } finally {
       set({ loading: false });
     }

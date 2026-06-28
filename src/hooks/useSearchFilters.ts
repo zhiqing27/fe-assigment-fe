@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "../utils/api";
-import type { SearchFilters } from "../components/SearchSideBar";
 import { useDebounce } from "./useDebounce";
 
-interface Option {
+export interface Option {
   id: string;
   name: string;
 }
@@ -35,18 +34,14 @@ export function useSearchFilters() {
     apiFetch<OptionResponse>(`products/filters/brands${query}`).then((r) => setBrands(toArray(r))).catch(() => {});
   }, [categoryId]);
 
-  function getFilters(): SearchFilters {
-    return { name: debouncedName, categoryId, brandId, color };
-  }
-
   return {
     nameInput, setNameInput,
+    debouncedName,
     categoryId, setCategoryId,
     brandId, setBrandId,
     color, setColor,
     categories,
     brands,
     colors,
-    getFilters,
   };
 }

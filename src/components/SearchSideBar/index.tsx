@@ -1,4 +1,5 @@
 import { Button, Form } from "react-bootstrap";
+import type { Option } from "../../hooks/useSearchFilters";
 import "./index.scss";
 
 export interface SearchFilters {
@@ -12,9 +13,9 @@ interface Props {
   categoryId: string;
   brandId: string;
   color: string;
-  categories: any[];
-  brands: any[];
-  colors: any[];
+  categories: Option[];
+  brands: Option[];
+  colors: Option[];
   onNameChange: (v: string) => void;
   onCategoryChange: (v: string) => void;
   onBrandChange: (v: string) => void;
