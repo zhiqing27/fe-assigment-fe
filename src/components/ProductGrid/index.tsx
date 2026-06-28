@@ -1,24 +1,19 @@
 import { Button, Card, Col, Pagination, Row, Spinner } from "react-bootstrap";
 import "./index.scss";
 
-export interface Color {
-  id: string;
-  name: string;
-  colorCode: string;
-  stock: number;
-  price: number;
-}
+
 
 export interface Product {
-  id: string;
-  name: string;
+  productColorId: string;
+  productId: string;
+  name: string; 
+  price: number;
   imageUrl: string;
-  basePrice: number;
+  stock: number;
   brandId: string;
   brandName: string;
   categoryId: string;
-  categoryName:string;
-  colors: Color[];
+  categoryName: string;
 }
 
 export interface ProductListResponse {
@@ -64,22 +59,22 @@ export default function ProductGrid({
     <>
       <Row xs={2} md={3} lg={4} className="g-3">
         {products.map((p) => (
-          <Col key={p.id}>
+          <Col key={p.productColorId}>
             <Card className="h-100 text-center">
-              <Card.Body>
-                <div className="mb-2" style={{ fontSize: 48 }}>📱</div>
+              <Card.Img variant="top" src={p.imageUrl} alt={p.name} className="product-img" />
+              <Card.Body className="d-flex flex-column">
                 <Card.Title style={{ fontSize: "0.95rem" }}>{p.name}</Card.Title>
-                <Card.Text className="mb-3">RM {p.basePrice.toLocaleString()}</Card.Text>
+                <Card.Text className="mb-3">RM {p.price.toLocaleString()}</Card.Text>
                 <Button
                   variant="link"
                   size="sm"
-                  className="w-100 button-brand"
-                  disabled={placingOrder === p.id}
-                  onClick={() => onPlaceOrder(p.id)}
+                  className="w-100 button-brand mt-auto"
+                  disabled={placingOrder === p.productColorId || p.stock === 0}
+                  onClick={() => onPlaceOrder(p.productColorId)}
                 >
-                  {placingOrder === p.id
+                  {placingOrder === p.productColorId
                     ? <><Spinner animation="border" size="sm" /> Placing...</>
-                    : "Place Order"}
+                    : p.stock === 0 ? "Out of Stock" : "Place Order"}
                 </Button>
               </Card.Body>
             </Card>

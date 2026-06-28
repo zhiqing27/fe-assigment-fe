@@ -41,7 +41,6 @@ export function useSearchFilters() {
 
   return {
     nameInput, setNameInput,
-    debouncedName,
     categoryId, setCategoryId,
     brandId, setBrandId,
     color, setColor,

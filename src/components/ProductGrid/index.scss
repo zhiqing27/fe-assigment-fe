@@ -1,5 +1,11 @@
 @use "../../styles/variables" as *;
 
+.product-img {
+  height: 160px;
+  object-fit: contain;
+  padding: 8px;
+}
+
 .button-brand {
   padding: 8px 28px;
   border: 2px solid $brand;
@@ -12,6 +18,7 @@
   &:hover {
     background: $brand-active;
     border-color: $brand-active;
+    color: #fff;  
   }
 
   &:disabled {

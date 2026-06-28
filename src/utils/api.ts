@@ -1,5 +1,4 @@
-import { BACKEND_URL } from "../hooks/useInitializeApp";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
 const API_KEY = import.meta.env.VITE_API_KEY as string;
 
 export async function apiFetch<T>(
