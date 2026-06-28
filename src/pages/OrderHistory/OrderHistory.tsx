@@ -33,11 +33,11 @@ export default function OrderHistory() {
           {orders.map((o) => (
             <tr key={o.orderId}>
               <td>{o.orderId}</td>
-              <td>{o.productId}</td>
+              <td>{o.productCode}</td>
               <td>{o.productName}</td>
               <td>{o.productColor}</td>
               <td>{o.status}</td>
-              <td>{o.createdAt}</td>
+              <td>{new Date(o.createdAt).toLocaleString()}</td>
               <td>
                 {o.status === "pending" && (
                   <Button

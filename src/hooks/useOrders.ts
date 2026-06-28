@@ -4,6 +4,7 @@ import { getClientId } from "../utils/clientId";
 
 export interface Order {
   id: string;
+  productCode: string;
   orderId: string;
   productId: string;
   productName: string;
