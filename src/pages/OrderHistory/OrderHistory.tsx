@@ -39,7 +39,7 @@ export default function OrderHistory() {
               <td>{o.productName}</td>
               <td>{o.productColor}</td>
               <td>{o.status}</td>
-              <td>{new Date(o.createdAt).toLocaleString()}</td>
+              <td>{new Date(new Date(o.createdAt.slice(0, 23).replace(' ', 'T') + 'Z').getTime() + 8 * 60 * 60 * 1000).toLocaleString('en-GB')}</td>
               <td>
                 {o.status === "pending" && (
                   <Button
